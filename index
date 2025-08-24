@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday Jiya ❣️</title>
+<style>
+  :root{
+    --bg1: #0f172a;
+    --accent1: #ff6b9e;
+    --accent2: #7c4dff;
+  }
+  html,body{
+    height:100%;margin:0;font-family:Inter, Poppins, sans-serif;
+    background:linear-gradient(180deg,var(--bg1) 0%, #111827 60%);
+    color:#fff;overflow:hidden
+  }
+  .center{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+
+  /* Start overlay */
+  .start{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    background:linear-gradient(135deg, rgba(255,107,158,0.15), rgba(124,77,255,0.12));
+    z-index:50;backdrop-filter: blur(4px);
+  }
+  .open-btn{
+    padding:14px 28px;border-radius:28px;font-weight:700;border:none;
+    background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;
+    box-shadow:0 10px 30px rgba(124,77,255,0.25);cursor:pointer;font-size:18px;
+  }
+
+  /* Cake Glow */
+  .cake-glow {
+    position:absolute;
+    bottom:-20px;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,182,193,0.45), transparent 70%);
+    filter:blur(40px);
+    z-index:-1;
+  }
+
+  .cake {
+    width:260px; max-width:80vw;
+    position:relative; cursor:pointer;
+    display:flex;align-items:flex-end;justify-content:center;flex-direction:column;
+    transform-origin:center;
+    transition: transform .35s cubic-bezier(.2,.9,.3,1);
+  }
+  .layer {
+    width:100%;border-radius:22px;height:62px;margin-bottom:8px;position:relative;overflow:visible;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.55), inset 0 -8px rgba(0,0,0,0.08);
+  }
+  .layer.top{
+    background: linear-gradient(180deg,#fffaf7 0%, #ffecec 60%);
+    height:50px;border-radius:22px 22px 18px 18px;
+  }
+  .layer.mid{background: linear-gradient(180deg,#d2691e,#a0522d);}  /* chocolate */
+  .layer.bot{background: linear-gradient(180deg,#ffafcc,#ff6b9e);}   /* strawberry */
+
+  /* Icing */
+  .icing{position:absolute;left:0;right:0;top:-12px;height:26px;background:linear-gradient(180deg,#fff,#fffefc);border-radius:18px 18px 10px 10px;}
+  .icing::before,.icing::after{content:"";position:absolute;border-radius:50% 50% 30% 30%;background:#fff;opacity:.95;}
+  .icing::before{left:12%;width:22%;height:30px;top:-18px;transform:rotate(-12deg);}
+  .icing::after{right:12%;width:24%;height:34px;top:-20px;transform:rotate(8deg);}
+
+  /* Sprinkles */
+  .sprinkle{position:absolute;width:6px;height:12px;border-radius:3px;transform:rotate(25deg);}
+  .sprinkle:nth-child(1){top:4px;left:40px;background:#ff4d6d;}
+  .sprinkle:nth-child(2){top:10px;left:90px;background:#3ddc97;}
+  .sprinkle:nth-child(3){top:2px;left:150px;background:#ffd93d;}
+  .sprinkle:nth-child(4){top:14px;left:200px;background:#7c4dff;}
+  .sprinkle:nth-child(5){top:6px;left:120px;background:#00bcd4;}
+
+  /* Candle */
+  .candle-wrap{position:absolute;top:-80px;left:50%;transform:translateX(-50%);}
+  .candle{width:18px;height:56px;border-radius:6px;background:linear-gradient(180deg,#fff,#ffeaea);position:relative;}
+  .wick{position:absolute;top:-6px;width:2px;height:10px;background:#1f2937;border-radius:2px}
+  .flame{
+    width:22px;height:28px;border-radius:50% 50% 40% 40%;
+    background: radial-gradient(circle at 40% 30%, #fff7b6 0%, #ffd54d 20%, #ff8a00 55%, rgba(255,70,0,0.9) 100%);
+    position:absolute;top:-28px;left:-2px;animation:flicker 420ms infinite;
+  }
+  @keyframes flicker{0%{transform:scaleY(1) rotate(-2deg);}50%{transform:scaleY(1.15) rotate(2deg);}100%{transform:scaleY(1) rotate(-1deg);}}
+
+  /* Wishes */
+  .wishes {
+    position:fixed; left:50%; transform:translateX(-50%); bottom:32px; width:min(760px,92vw); display:grid; gap:14px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); padding:12px; z-index:40; pointer-events:none;
+  }
+  .card {
+    border-radius:16px;padding:16px;background:linear-gradient(180deg,#fff,#fff5f9);color:#2c0442;
+    box-shadow: 0 10px 30px rgba(12,10,20,0.48); transform: translateY(24px) scale(.98); opacity:0; transition: all .6s cubic-bezier(.2,.9,.3,1);
+  }
+  .card.show{transform:translateY(0) scale(1); opacity:1}
+  .card h3{margin:0 0 8px 0;font-size:18px;color:var(--accent2)}
+  .card p{margin:0;font-size:15px;line-height:1.35;color:#36123d}
+
+  /* Hearts */
+  .heart{position:fixed;bottom:-20px;width:20px;height:20px;background:red;transform:rotate(45deg);animation:floatUp 6s linear infinite;}
+  .heart::before,.heart::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:red;}
+  .heart::before{left:-10px;}
+  .heart::after{top:-10px;}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(45deg);opacity:1}100%{transform:translateY(-120vh) rotate(45deg);opacity:0}}
+
+</style>
+</head>
+<body>
+
+<!-- Start overlay -->
+<div class="start" id="start">
+  <h1>Surprise for Jiya 🎁</h1>
+  <p>Tap below to open the birthday surprise</p>
+  <button class="open-btn" id="openBtn">Open Surprise 🎉</button>
+</div>
+
+<!-- Stage -->
+<div class="center" id="stage" style="opacity:0;pointer-events:none">
+  <div class="cake" id="cake">
+    <div class="cake-glow"></div>
+    <div class="layer top">
+      <div class="icing"></div>
+      <div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div>
+    </div>
+    <div class="layer mid"></div>
+    <div class="layer bot"></div>
+    <div class="candle-wrap">
+      <div class="candle"><div class="wick"></div></div>
+      <div class="flame"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Wishes -->
+<div class="wishes" id="wishes">
+  <div class="card" id="c1"><h3>For Jiya -- With love</h3><p>🎂 May your life be layered with sweetness, joy, and success.</p></div>
+  <div class="card" id="c2"><h3>Shine On</h3><p>✨ Keep glowing, keep dreaming -- the world needs your sparkle.</p></div>
+  <div class="card" id="c3"><h3>Celebrate You</h3><p>💖 Today is your day: feel loved and enjoy every magical moment.</p></div>
+</div>
+
+<!-- Background Music -->
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://media.vole.wtf/happy-birthday/acoustic-guitar.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const start=document.getElementById('start');
+  const stage=document.getElementById('stage');
+  const openBtn=document.getElementById('openBtn');
+  const cake=document.getElementById('cake');
+  const wishes=document.getElementById('wishes');
+  const cards=[c1,c2,c3];
+  const music=document.getElementById('bgMusic');
+  let revealed=false;
+
+  openBtn.addEventListener('click',()=>{
+    start.style.transition='opacity .9s';
+    start.style.opacity=0;
+    setTimeout(()=>start.remove(),900);
+    stage.style.opacity=1;stage.style.pointerEvents="auto";
+  });
+
+  cake.addEventListener('click',()=>{
+    if(revealed) return;
+    revealed=true;
+    cake.style.transform="scale(1.08)";
+    setTimeout(()=>cake.style.transform="scale(1)",400);
+
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),400+i*500));
+    wishes.style.pointerEvents="auto";
+
+    // Hearts
+    for(let i=0;i<15;i++){
+      const h=document.createElement('div');
+      h.className="heart";
+      h.style.left=Math.random()*90+"vw";
+      h.style.animationDuration=(4+Math.random()*3)+"s";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),7000);
+    }
+
+    // Play music
+    music.play();
+  });
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Happy Birthday Jiya ❣️</title>
+<style>
+  :root{
+    --bg1: #0f172a;
+    --accent1: #ff6b9e;
+    --accent2: #7c4dff;
+  }
+  html,body{
+    height:100%;margin:0;font-family:Inter, Poppins, sans-serif;
+    background:linear-gradient(180deg,var(--bg1) 0%, #111827 60%);
+    color:#fff;overflow:hidden
+  }
+  .center{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;}
+
+  /* Start overlay */
+  .start{
+    width:100%;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    background:linear-gradient(135deg, rgba(255,107,158,0.15), rgba(124,77,255,0.12));
+    z-index:50;backdrop-filter: blur(4px);
+  }
+  .open-btn{
+    padding:14px 28px;border-radius:28px;font-weight:700;border:none;
+    background:linear-gradient(90deg,var(--accent1),var(--accent2));color:#fff;
+    box-shadow:0 10px 30px rgba(124,77,255,0.25);cursor:pointer;font-size:18px;
+  }
+
+  /* Cake Glow */
+  .cake-glow {
+    position:absolute;
+    bottom:-20px;
+    width:300px;
+    height:300px;
+    border-radius:50%;
+    background:radial-gradient(circle, rgba(255,182,193,0.45), transparent 70%);
+    filter:blur(40px);
+    z-index:-1;
+  }
+
+  .cake {
+    width:260px; max-width:80vw;
+    position:relative; cursor:pointer;
+    display:flex;align-items:flex-end;justify-content:center;flex-direction:column;
+    transform-origin:center;
+    transition: transform .35s cubic-bezier(.2,.9,.3,1);
+  }
+  .layer {
+    width:100%;border-radius:22px;height:62px;margin-bottom:8px;position:relative;overflow:visible;
+    box-shadow: 0 12px 30px rgba(2,6,23,0.55), inset 0 -8px rgba(0,0,0,0.08);
+  }
+  .layer.top{
+    background: linear-gradient(180deg,#fffaf7 0%, #ffecec 60%);
+    height:50px;border-radius:22px 22px 18px 18px;
+  }
+  .layer.mid{background: linear-gradient(180deg,#d2691e,#a0522d);}  /* chocolate */
+  .layer.bot{background: linear-gradient(180deg,#ffafcc,#ff6b9e);}   /* strawberry */
+
+  /* Icing */
+  .icing{position:absolute;left:0;right:0;top:-12px;height:26px;background:linear-gradient(180deg,#fff,#fffefc);border-radius:18px 18px 10px 10px;}
+  .icing::before,.icing::after{content:"";position:absolute;border-radius:50% 50% 30% 30%;background:#fff;opacity:.95;}
+  .icing::before{left:12%;width:22%;height:30px;top:-18px;transform:rotate(-12deg);}
+  .icing::after{right:12%;width:24%;height:34px;top:-20px;transform:rotate(8deg);}
+
+  /* Sprinkles */
+  .sprinkle{position:absolute;width:6px;height:12px;border-radius:3px;transform:rotate(25deg);}
+  .sprinkle:nth-child(1){top:4px;left:40px;background:#ff4d6d;}
+  .sprinkle:nth-child(2){top:10px;left:90px;background:#3ddc97;}
+  .sprinkle:nth-child(3){top:2px;left:150px;background:#ffd93d;}
+  .sprinkle:nth-child(4){top:14px;left:200px;background:#7c4dff;}
+  .sprinkle:nth-child(5){top:6px;left:120px;background:#00bcd4;}
+
+  /* Candle */
+  .candle-wrap{position:absolute;top:-80px;left:50%;transform:translateX(-50%);}
+  .candle{width:18px;height:56px;border-radius:6px;background:linear-gradient(180deg,#fff,#ffeaea);position:relative;}
+  .wick{position:absolute;top:-6px;width:2px;height:10px;background:#1f2937;border-radius:2px}
+  .flame{
+    width:22px;height:28px;border-radius:50% 50% 40% 40%;
+    background: radial-gradient(circle at 40% 30%, #fff7b6 0%, #ffd54d 20%, #ff8a00 55%, rgba(255,70,0,0.9) 100%);
+    position:absolute;top:-28px;left:-2px;animation:flicker 420ms infinite;
+  }
+  @keyframes flicker{0%{transform:scaleY(1) rotate(-2deg);}50%{transform:scaleY(1.15) rotate(2deg);}100%{transform:scaleY(1) rotate(-1deg);}}
+
+  /* Wishes */
+  .wishes {
+    position:fixed; left:50%; transform:translateX(-50%); bottom:32px; width:min(760px,92vw); display:grid; gap:14px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); padding:12px; z-index:40; pointer-events:none;
+  }
+  .card {
+    border-radius:16px;padding:16px;background:linear-gradient(180deg,#fff,#fff5f9);color:#2c0442;
+    box-shadow: 0 10px 30px rgba(12,10,20,0.48); transform: translateY(24px) scale(.98); opacity:0; transition: all .6s cubic-bezier(.2,.9,.3,1);
+  }
+  .card.show{transform:translateY(0) scale(1); opacity:1}
+  .card h3{margin:0 0 8px 0;font-size:18px;color:var(--accent2)}
+  .card p{margin:0;font-size:15px;line-height:1.35;color:#36123d}
+
+  /* Hearts */
+  .heart{position:fixed;bottom:-20px;width:20px;height:20px;background:red;transform:rotate(45deg);animation:floatUp 6s linear infinite;}
+  .heart::before,.heart::after{content:"";position:absolute;width:20px;height:20px;border-radius:50%;background:red;}
+  .heart::before{left:-10px;}
+  .heart::after{top:-10px;}
+  @keyframes floatUp{0%{transform:translateY(0) rotate(45deg);opacity:1}100%{transform:translateY(-120vh) rotate(45deg);opacity:0}}
+
+</style>
+</head>
+<body>
+
+<!-- Start overlay -->
+<div class="start" id="start">
+  <h1>Surprise for Jiya 🎁</h1>
+  <p>Tap below to open the birthday surprise</p>
+  <button class="open-btn" id="openBtn">Open Surprise 🎉</button>
+</div>
+
+<!-- Stage -->
+<div class="center" id="stage" style="opacity:0;pointer-events:none">
+  <div class="cake" id="cake">
+    <div class="cake-glow"></div>
+    <div class="layer top">
+      <div class="icing"></div>
+      <div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div><div class="sprinkle"></div>
+    </div>
+    <div class="layer mid"></div>
+    <div class="layer bot"></div>
+    <div class="candle-wrap">
+      <div class="candle"><div class="wick"></div></div>
+      <div class="flame"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Wishes -->
+<div class="wishes" id="wishes">
+  <div class="card" id="c1"><h3>For Jiya -- With love</h3><p>🎂 May your life be layered with sweetness, joy, and success.</p></div>
+  <div class="card" id="c2"><h3>Shine On</h3><p>✨ Keep glowing, keep dreaming -- the world needs your sparkle.</p></div>
+  <div class="card" id="c3"><h3>Celebrate You</h3><p>💖 Today is your day: feel loved and enjoy every magical moment.</p></div>
+</div>
+
+<!-- Background Music -->
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="https://media.vole.wtf/happy-birthday/acoustic-guitar.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  const start=document.getElementById('start');
+  const stage=document.getElementById('stage');
+  const openBtn=document.getElementById('openBtn');
+  const cake=document.getElementById('cake');
+  const wishes=document.getElementById('wishes');
+  const cards=[c1,c2,c3];
+  const music=document.getElementById('bgMusic');
+  let revealed=false;
+
+  openBtn.addEventListener('click',()=>{
+    start.style.transition='opacity .9s';
+    start.style.opacity=0;
+    setTimeout(()=>start.remove(),900);
+    stage.style.opacity=1;stage.style.pointerEvents="auto";
+  });
+
+  cake.addEventListener('click',()=>{
+    if(revealed) return;
+    revealed=true;
+    cake.style.transform="scale(1.08)";
+    setTimeout(()=>cake.style.transform="scale(1)",400);
+
+    cards.forEach((c,i)=>setTimeout(()=>c.classList.add('show'),400+i*500));
+    wishes.style.pointerEvents="auto";
+
+    // Hearts
+    for(let i=0;i<15;i++){
+      const h=document.createElement('div');
+      h.className="heart";
+      h.style.left=Math.random()*90+"vw";
+      h.style.animationDuration=(4+Math.random()*3)+"s";
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(),7000);
+    }
+
+    // Play music
+    music.play();
+  });
+</script>
+</body>
+</html>
